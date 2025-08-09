@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView,UpdateView
 from .models import Post
-
+from django.urls import reverse_lazy
 # Create your views here.
 #PostsListView is going to retrieve all the objects from the post table in the db
 
@@ -29,3 +29,18 @@ class PostCreateView(CreateView):
     template_name = "posts/new.html"
     model=Post
     fields=["title", "subtitle", "body"]
+
+
+# PostUpdateView is going to allow us to edit existing records from the db
+
+
+class PostUpdateView(UpdateView):
+    template_name = "posts/edit.html"
+    model =Post
+    fields = ["title", "subtitle", "body"]
+
+
+class PostDeleteView(DeleteView):
+    template_name = "posts/delete.html"
+    model=Post
+    success_url = reverse_lazy("post_list")
